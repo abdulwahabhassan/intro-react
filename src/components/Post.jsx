@@ -1,4 +1,6 @@
-const names = ['Hassan', 'Abdulwahab'];
+import styles from './Post.module.css' //this is how you must import styles from CSS modules
+//this way (the name you choose for the import, in this case 'styles' doesn't matter), 
+// each specified style selector can be referenced during usage
 
 // Attributes added to components are called props
 // They allow components to take arguments like regular functions do
@@ -8,11 +10,9 @@ const names = ['Hassan', 'Abdulwahab'];
 
 function Post(props) {
    
-    // best practice is to avoild inline styling and 
-    // instead put CSS code inside css files
-    return <div style={{color: 'white', textAlign:'left'}}>
-        <p>{props.author}</p>
-        <p>{props.body}</p>
+    return <div className={styles.post}>
+        <p className={styles.author}>{props.author}</p>
+        <p className={styles.text}>{props.body}</p>
     </div>
 }
 
