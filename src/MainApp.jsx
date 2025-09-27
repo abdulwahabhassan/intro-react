@@ -2,7 +2,11 @@ import Post from "./components/Post";
 
 function MainApp() {
     return (
-        <Post />
+        <main>
+            <Post />
+            <Post />
+            <Post />
+        </main>
     )
 }
 
