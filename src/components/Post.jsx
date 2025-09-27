@@ -1,4 +1,4 @@
-import styles from './Post.module.css' //this is how you must import styles from CSS modules
+import classes from './Post.module.css' //this is how you must import styles from CSS modules
 //this way (the name you choose for the import, in this case 'styles' doesn't matter), 
 // each specified style selector can be referenced during usage
 
@@ -10,9 +10,9 @@ import styles from './Post.module.css' //this is how you must import styles from
 
 function Post(props) {
    
-    return <div className={styles.post}>
-        <p className={styles.author}>{props.author}</p>
-        <p className={styles.text}>{props.body}</p>
+    return <div className={classes.post}>
+        <p className={classes.author}>{props.author}</p>
+        <p className={classes.text}>{props.body}</p>
     </div>
 }
 
