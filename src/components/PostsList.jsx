@@ -25,7 +25,7 @@ function PostList() {
 
     if (modalIsVisible) {
         modalContent = (
-            <Modal modalIsVisible={modalIsVisible} onClickModalBackdrop={onClickModalBackdropHandler}>
+            <Modal onClickModalBackdrop={onClickModalBackdropHandler}>
                 <NewPost
                     onBodyChange={onBodyChangeHandler}
                     onAuthorChange={onAuthorChangeHandler}
