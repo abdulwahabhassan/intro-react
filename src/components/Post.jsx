@@ -7,7 +7,9 @@ const names = ['Hassan', 'Abdulwahab'];
 // (I find this weird tho coming from a statically typed OOP language as a mobile developer!)
 
 function Post(props) {
-    props.body
+   
+    // best practice is to avoild inline styling and 
+    // instead put CSS code inside css files
     return <div style={{color: 'white', textAlign:'left'}}>
         <p>{props.author}</p>
         <p>{props.body}</p>
