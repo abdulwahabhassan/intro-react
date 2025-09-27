@@ -8,7 +8,7 @@ const names = ['Hassan', 'Abdulwahab'];
 
 function Post(props) {
     props.body
-    return <div>
+    return <div style={{color: 'white', textAlign:'left'}}>
         <p>{props.author}</p>
         <p>{props.body}</p>
     </div>
