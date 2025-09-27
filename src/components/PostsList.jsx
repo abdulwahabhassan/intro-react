@@ -21,22 +21,30 @@ function PostList() {
         setModalIsVisible(false)
     }
 
-    let modalContent;
+    // let modalContent;
 
-    if (modalIsVisible) {
-        modalContent = (
-            <Modal onClickModalBackdrop={onClickModalBackdropHandler}>
-                <NewPost
-                    onBodyChange={onBodyChangeHandler}
-                    onAuthorChange={onAuthorChangeHandler}
-                />
-            </Modal>
-        );
-    }
+    // if (modalIsVisible) {
+    //     modalContent = (
+    //         <Modal onClickModalBackdrop={onClickModalBackdropHandler}>
+    //             <NewPost
+    //                 onBodyChange={onBodyChangeHandler}
+    //                 onAuthorChange={onAuthorChangeHandler}
+    //             />
+    //         </Modal>
+    //     );
+    // }
 
     return (
         <>
-            {modalContent}
+            {modalIsVisible && (
+                <Modal onClickModalBackdrop={onClickModalBackdropHandler}>
+                    <NewPost
+                        onBodyChange={onBodyChangeHandler}
+                        onAuthorChange={onAuthorChangeHandler}
+                    />
+                </Modal>
+            )
+            }
             <ul className={classes.posts}>
                 <Post author={enteredAuthor} body={enteredBody} />
                 <Post author="Mike" body="I am loving this course" />
