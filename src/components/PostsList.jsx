@@ -7,6 +7,7 @@ import Modal from './Modal';
 function PostList() {
     const [enteredBody, setEnteredBody] = useState('');
     const [enteredAuthor, setEnteredAuthor] = useState('');
+    const [modalIsVisible, setModalIsVisible] = useState(true);
 
     function onBodyChangeHandler(event) {
         setEnteredBody(event.target.value);
@@ -16,19 +17,32 @@ function PostList() {
         setEnteredAuthor(event.target.value);
     }
 
-    return (
-        <>
-        {/* To give NewPost modal overlay look */}
-            <Modal>
+    function onClickModalBackdropHandler() {
+        setModalIsVisible(false)
+    }
+
+    let modalContent;
+
+    if (modalIsVisible) {
+        modalContent = (
+            <Modal modalIsVisible={modalIsVisible} onClickModalBackdrop={onClickModalBackdropHandler}>
                 <NewPost
                     onBodyChange={onBodyChangeHandler}
                     onAuthorChange={onAuthorChangeHandler}
                 />
             </Modal>
+        );
+    }
+
+    return (
+        <>
+            {modalContent}
             <ul className={classes.posts}>
                 <Post author={enteredAuthor} body={enteredBody} />
                 <Post author="Mike" body="I am loving this course" />
             </ul>
+
+
         </>
     );
 }
