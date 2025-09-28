@@ -3,16 +3,40 @@ import { useState } from 'react'
 // functions that state with `use` in React are called React hooks
 // Hook functions are executed in React component functions
 
-function NewPost({onBodyChange, onAuthorChange, onCancel}) {
+function NewPost({ onSubmitPost, onCancel }) {
+    const [enteredBody, setEnteredBody] = useState('');
+    const [enteredAuthor, setEnteredAuthor] = useState('');
+
+    function onBodyChangeHandler(event) {
+        setEnteredBody(event.target.value);
+    }
+
+    function onAuthorChangeHandler(event) {
+        setEnteredAuthor(event.target.value);
+    }
+
+    function onSubmitPostHandler(event) {
+        // This prevents the default browser action of generating and
+        // submitting an HTTP request
+        event.preventDefault();
+        const postData = {
+            body: enteredBody,
+            author: enteredAuthor
+        };
+        console.log(postData);
+        onCancel()
+    }
+
+
     return (
-        <form className={classes.form}>
+        <form className={classes.form} onSubmit={onSubmitPostHandler}>
             <p>
                 <label htmlFor="body">Text</label>
-                <textarea id="body" required rows={3} onChange={onBodyChange} />
+                <textarea id="body" required rows={3} onChange={onBodyChangeHandler} />
             </p>
             <p>
                 <label htmlFor="name">Your name</label>
-                <input type="text" id="name" required onChange={onAuthorChange} />
+                <input type="text" id="name" required onChange={onAuthorChangeHandler} />
             </p>
             <p className={classes.actions}>
                 <button type='button' onClick={onCancel}>Cancel</button>
