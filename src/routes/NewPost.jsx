@@ -1,3 +1,4 @@
+import Modal from '../components/Modal';
 import classes from './NewPost.module.css';
 import { useState } from 'react'
 // functions that state with `use` in React are called React hooks
@@ -29,7 +30,8 @@ function NewPost({onCancel, onAddPost }) {
 
 
     return (
-        <form className={classes.form} onSubmit={onSubmitPostHandler}>
+        <Modal>
+            <form className={classes.form} onSubmit={onSubmitPostHandler}>
             <p>
                 <label htmlFor="body">Text</label>
                 <textarea id="body" required rows={3} onChange={onBodyChangeHandler} />
@@ -43,6 +45,7 @@ function NewPost({onCancel, onAddPost }) {
                 <button>Submit</button>
             </p>
         </form>
+        </Modal>
     );
 }
 
