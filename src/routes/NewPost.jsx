@@ -1,56 +1,63 @@
 import Modal from '../components/Modal';
 import classes from './NewPost.module.css';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Form, redirect } from 'react-router-dom';
 // functions that state with `use` in React are called React hooks
 // Hook functions are executed in React component functions
 
-function NewPost({ onAddPost }) {
-    const [enteredBody, setEnteredBody] = useState('');
-    const [enteredAuthor, setEnteredAuthor] = useState('');
-
-    function onBodyChangeHandler(event) {
-        setEnteredBody(event.target.value);
-    }
-
-    function onAuthorChangeHandler(event) {
-        setEnteredAuthor(event.target.value);
-    }
-
-    function onSubmitPostHandler(event) {
-        // This prevents the default browser action of generating and
-        // submitting an HTTP request
-        event.preventDefault();
-        const postData = {
-            body: enteredBody,
-            author: enteredAuthor
-        };
-        onAddPost(postData);
-        onCancel();
-    }
-
-
+function NewPost() {
     return (
         <Modal>
-            <form className={classes.form} onSubmit={onSubmitPostHandler}>
-            <p>
-                <label htmlFor="body">Text</label>
-                <textarea id="body" required rows={3} onChange={onBodyChangeHandler} />
-            </p>
-            <p>
-                <label htmlFor="name">Your name</label>
-                <input type="text" id="name" required onChange={onAuthorChangeHandler} />
-            </p>
-            <p className={classes.actions}>
-                <Link to='..' type="button">Cancel</Link>
-                <button>Submit</button>
-            </p>
-        </form>
+            {/* Using React Form element causes React to handle the form submission instead of the browser
+            sending a request as per default.
+            React will gather the input data of the form and generate and object for us
+            the value of the name attributes we set as properties of the object and call
+            the `action` we provide in the route that contains the form.
+            React will give the request object a method which could be used on the action
+            to find out which form was submitted when the action was triggered in case we
+            have multiple forms that belong to the same route with the same action
+            */}
+            <Form method='post' className={classes.form}>
+                <p>
+                    <label htmlFor="body">Text</label>
+                    <textarea id="body" name="body" required rows={3} />
+                </p>
+                <p>
+                    <label htmlFor="name">Your name</label>
+                    <input type="text" id="name" name="author" required />
+                </p>
+                <p className={classes.actions}>
+                    <Link to='..' type="button">Cancel</Link>
+                    <button>Submit</button>
+                </p>
+            </Form>
         </Modal>
     );
 }
 
 export default NewPost;
+
+export async function action({request}) {
+    // The request object generated and built by React router when action was triggered
+    const formData = await request.formData(); // Retrieves the formdata wrapped in a promise and bundled in the request
+    // Extract the fields in the form data
+    // formData.get('body')
+    // Anther approach
+    const postData = Object.fromEntries(formData); // returns { body: '...', author: '...' }
+    await fetch(
+        'http://localhost:8080/posts', // our locally hosted dummy backend node server
+        {
+            method: 'POST',
+            body: JSON.stringify(postData),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    );
+    //redirct can be called in loader or action functions and generates a response object
+    //which in the end is returned by the function
+    //it returns the result of calling the function
+    return redirect('/'); // redirect to home
+}
 
 /*
 NOTE:
