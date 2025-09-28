@@ -8,6 +8,19 @@ function PostList({ isPosting, onStopPosting }) {
     const [posts, setPosts] = useState([]);
 
     function addPostHandler(postData) {
+
+        // Available in browsers out of the box and can be used to fetch and send http requests/data
+        fetch(
+            'http://localhost:8080/posts', // our locally hosted dummy backend node server
+            { 
+                method: 'POST', 
+                body: JSON.stringify(postData),
+                headers: {
+                  'Content-Type': 'application/json'  
+                }
+            }
+        ); 
+
         /*
          This is not optimal but works
          setPosts([postData, ...posts]);

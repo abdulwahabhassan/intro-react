@@ -3,6 +3,9 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+// This is a React component and React is all about components 
+// which describe the app's user interface. These components return
+// JSX codes which allow mixing of HTML elements with Javscript code
 function App() {
   const [count, setCount] = useState(0)
 
