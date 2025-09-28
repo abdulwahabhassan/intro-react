@@ -3,7 +3,9 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './mainindex.css'
-import Posts from './routes/Posts.jsx'
+// We assign `loader` and alias of `postsLoader` to avoid name clashes with 
+// loaders that may be imported from other routes as well
+import Posts, {loader as postsLoader} from './routes/Posts.jsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import NewPost from './routes/NewPost.jsx'
 import RootLayout from './routes/RootLayout'
@@ -26,6 +28,13 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Posts />,
+        //loader can accept a promise a function that returns a promise or not
+        //if it returns a promise, React will wait for it to resolve before rendering the Posts element
+        //loader is used to fetch requests when this route is navigated to
+        //The data returned by loader is exposed to the Posts element and can be accessed by it
+        //inside the component or any of its nested components such as the `PostList` it nests
+        //using the useLoaderData hook from `react-router-dom`
+        loader: postsLoader,
         children: [
           { path: '/create-post', element: <NewPost /> }
         ]
