@@ -23,6 +23,10 @@ This tells vite or create react that you want to use the CSS Module feature
   animation: animate-in 1s ease-out forwards;
 }
 
+.post a {
+  text-decoration: none;
+}
+
 .author {
   font-size: 0.8rem;
   font-weight: bold;

@@ -1,16 +1,17 @@
 // This is React's entry point to your app,
 // Your javascript code starts running here
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './mainindex.css'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './mainindex.css';
 // We assign `loader` and alias of `postsLoader` to avoid name clashes with 
 // loaders that may be imported from other routes as well
-import Posts, { loader as postsLoader } from './routes/Posts.jsx'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import Posts, { loader as postsLoader } from './routes/Posts.jsx';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 // We assign `action` and alias of `newPostAction` to avoid name clashes with 
 // actions that may be imported from other routes as well
-import NewPost, { action as newPostAction } from './routes/NewPost.jsx'
-import RootLayout from './routes/RootLayout'
+import NewPost, { action as newPostAction } from './routes/NewPost';
+import RootLayout from './routes/RootLayout';
+import PostDetails, { loader as postDetailsLoader } from './routes/PostDetails';
 
 //create router configuration object 
 // Takes an array of all the routes to have as objects
@@ -44,6 +45,11 @@ const router = createBrowserRouter([
             //just as we can add loaders to routes, we can also add actions to route
             //this function will be triggered when a form is submitted in the route
             action: newPostAction
+          },
+          {
+            // for a post path which displays a selected post whose route uses the post's id
+            // which will be dynamically set when the post clicked, we do so;
+            path: '/:postId', element: <PostDetails />, loader: postDetailsLoader
           }
         ]
       },

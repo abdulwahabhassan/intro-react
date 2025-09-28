@@ -7,13 +7,17 @@ import classes from './Post.module.css' //this is how you must import styles fro
 // props here is an object that allows access to any custom value
 // passed to the Post component wherever it is used 
 // (I find this weird tho coming from a statically typed OOP language as a mobile developer!)
+import { Link } from 'react-router-dom';
 
 function Post(props) {
-   
-    return <div className={classes.post}>
-        <p className={classes.author}>{props.author}</p>
-        <p className={classes.text}>{props.body}</p>
-    </div>
+    return (
+        <li className={classes.post}>
+            <Link to={props.id}>
+                <p className={classes.author}>{props.author}</p>
+                <p className={classes.text}>{props.body}</p>
+            </Link>
+        </li>
+    )
 }
 
 export default Post;
