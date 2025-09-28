@@ -7,7 +7,7 @@ propeties of the object like so function Modal({children}) { .. }
 */
 function Modal(props) {
     return <>
-        <div className={classes.backdrop} onClick={props.onClickModalBackdrop}>
+        <div className={classes.backdrop} onClick={props.onClose}>
             {/* The default valie of open is true anyway hence '=true' can be omitted */}
             <dialog open={true} className={classes.modal}>
                 {props.children}

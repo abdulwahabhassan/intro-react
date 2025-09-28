@@ -4,10 +4,9 @@ import classes from './PostsList.module.css';
 import { useState } from 'react';
 import Modal from './Modal';
 
-function PostList() {
+function PostList({isPosting, onStopPosting}) {
     const [enteredBody, setEnteredBody] = useState('');
     const [enteredAuthor, setEnteredAuthor] = useState('');
-    const [modalIsVisible, setModalIsVisible] = useState(true);
 
     function onBodyChangeHandler(event) {
         setEnteredBody(event.target.value);
@@ -17,34 +16,22 @@ function PostList() {
         setEnteredAuthor(event.target.value);
     }
 
-    function onClickModalBackdropHandler() {
-        setModalIsVisible(false)
+    let modalContent;
+
+    if (isPosting) {
+        modalContent = (
+            <Modal onClose={onStopPosting}>
+                <NewPost
+                    onBodyChange={onBodyChangeHandler}
+                    onAuthorChange={onAuthorChangeHandler}
+                />
+            </Modal>
+        );
     }
-
-    // let modalContent;
-
-    // if (modalIsVisible) {
-    //     modalContent = (
-    //         <Modal onClickModalBackdrop={onClickModalBackdropHandler}>
-    //             <NewPost
-    //                 onBodyChange={onBodyChangeHandler}
-    //                 onAuthorChange={onAuthorChangeHandler}
-    //             />
-    //         </Modal>
-    //     );
-    // }
 
     return (
         <>
-            {modalIsVisible && (
-                <Modal onClickModalBackdrop={onClickModalBackdropHandler}>
-                    <NewPost
-                        onBodyChange={onBodyChangeHandler}
-                        onAuthorChange={onAuthorChangeHandler}
-                    />
-                </Modal>
-            )
-            }
+            {modalContent}
             <ul className={classes.posts}>
                 <Post author={enteredAuthor} body={enteredBody} />
                 <Post author="Mike" body="I am loving this course" />
