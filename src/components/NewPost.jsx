@@ -3,7 +3,7 @@ import { useState } from 'react'
 // functions that state with `use` in React are called React hooks
 // Hook functions are executed in React component functions
 
-function NewPost({ onSubmitPost, onCancel }) {
+function NewPost({onCancel, onAddPost }) {
     const [enteredBody, setEnteredBody] = useState('');
     const [enteredAuthor, setEnteredAuthor] = useState('');
 
@@ -23,7 +23,7 @@ function NewPost({ onSubmitPost, onCancel }) {
             body: enteredBody,
             author: enteredAuthor
         };
-        console.log(postData);
+        onAddPost(postData)
         onCancel()
     }
 
