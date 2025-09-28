@@ -3,8 +3,17 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './mainindex.css'
-import App from './App.jsx'
 import MainApp from './MainApp.jsx'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import NewPost from './components/NewPost.jsx'
+
+//create router configuration object 
+// Takes an array of all the routes to have as objects
+// Each object is a route path specifying the path and component to render for that route
+const router = createBrowserRouter([
+  { path: '/', element: <MainApp /> },
+  { path: '/create-post', element: <NewPost /> }
+]);
 
 // Takes a pointer to the <div> container/element we assigned 
 // the 'root' id in the index.html file and renders 
@@ -13,6 +22,9 @@ import MainApp from './MainApp.jsx'
 // which behaves like an HTML element
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <MainApp />
+    {/* This component enables routing and tells the router 
+    to watch the url for changes and render different 
+    components for different paths */}
+    <RouterProvider router={router} />
   </StrictMode>,
 )
